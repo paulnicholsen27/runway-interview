@@ -1,0 +1,52 @@
+{
+  "name": "react-interview",
+  "author": {
+    "name": "Runway Engineering",
+    "email": "eng@runway.com",
+    "url": "https://www.runway.com"
+  },
+  "version": "0.1.0",
+  "description": "A starter app for Runway's frontend exercise.",
+  "private": true,
+  "dependencies": {
+    "@chakra-ui/react": "^2.5.5",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "framer-motion": "^10.10.0",
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "@types/react": "^18.0.33",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "eslint": "^8.37.0",
+    "eslint-config-next": "^13.2.4",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-import-resolver-webpack": "^0.13.2",
+    "eslint-plugin-destructuring": "^2.2.1",
+    "next": "^13.2.4",
+    "prettier": "^2.8.7",
+    "sass": "^1.60.0",
+    "typescript": "^5.0.3"
+  },
+  "browserslist": {
+    "production": [
+      "last 2 versions"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "yarn next lint",
+    "prettier": "prettier --write -c src pages"
+  }
+}

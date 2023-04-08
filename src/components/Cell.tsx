@@ -9,7 +9,12 @@ interface Props {
 const Cell: React.FC<Props> = ({ value, onChange }) => {
   const onChangeHandler = useCallback<React.ChangeEventHandler<HTMLInputElement>>(
     (ev) => {
-      onChange(ev.target.value);
+
+      if (Number(ev.target.value) == ev.target.value) { 
+        onChange(ev.target.value); 
+      } else {
+        return
+      }
     },
     [onChange],
   );

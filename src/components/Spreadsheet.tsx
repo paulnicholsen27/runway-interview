@@ -1,11 +1,11 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Tag } from '@chakra-ui/react';
 import _ from 'lodash';
 import React, { useState } from 'react';
 
 import Cell from 'components/Cell';
 
 const NUM_ROWS = 10;
-const NUM_COLUMNS = 10;
+const NUM_COLUMNS = 8;
 
 const Spreadsheet: React.FC = () => {
   const [spreadsheetState, setSpreadsheetState] = useState(
@@ -17,6 +17,7 @@ const Spreadsheet: React.FC = () => {
       {spreadsheetState.map((row, rowIdx) => {
         return (
           <Flex key={String(rowIdx)}>
+            <Tag>{rowIdx + 1}</Tag>
             {row.map((cellValue, columnIdx) => (
               <Cell
                 key={`${rowIdx}/${columnIdx}`}

@@ -1,16 +1,24 @@
-import { Box, Flex, Tag } from '@chakra-ui/react';
 import _ from 'lodash';
 import React, { useState } from 'react';
-
+import { Box, Flex, Tag } from '@chakra-ui/react';
 import Cell from 'components/Cell';
 
 const NUM_ROWS = 10;
 const NUM_COLUMNS = 8;
 
 const Spreadsheet: React.FC = () => {
+
   const [spreadsheetState, setSpreadsheetState] = useState(
     _.times(NUM_ROWS, () => _.times(NUM_COLUMNS, _.constant(''))),
   );
+
+  const displayValue = (value) => { // this is buggy & could be better done with useEffect hook but I'm out of time
+    if (value && Number(value.replace(",", "")) == value.replace(",", "")) {
+      return "$" + parseFloat(value).toLocaleString("en-US")
+    } else {
+      return value
+    }
+  }
 
   return (
     <Box width="full">
@@ -21,7 +29,7 @@ const Spreadsheet: React.FC = () => {
             {row.map((cellValue, columnIdx) => (
               <Cell
                 key={`${rowIdx}/${columnIdx}`}
-                value={cellValue}
+                value={displayValue(cellValue)}
                 onChange={(newValue: string) => {
                   const newRow = [
                     ...spreadsheetState[rowIdx].slice(0, columnIdx),

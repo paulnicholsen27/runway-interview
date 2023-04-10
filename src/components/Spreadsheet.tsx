@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Flex, Tag } from '@chakra-ui/react';
 import Cell from 'components/Cell';
 
@@ -12,16 +12,38 @@ const Spreadsheet: React.FC = () => {
     _.times(NUM_ROWS, () => _.times(NUM_COLUMNS, _.constant(''))),
   );
 
-  const displayValue = (value) => { // this is buggy & could be better done with useEffect hook but I'm out of time
-    if (value && Number(value.replace(",", "")) == value.replace(",", "")) {
-      return "$" + parseFloat(value).toLocaleString("en-US")
-    } else {
-      return value
-    }
+
+
+  const onKeyPress = (rowIdx, columnIdx) => {
+    document.getElementById("spreadsheet").addEventListener('keydown', e => {
+      // this removes the ability to use the cursor to edit text, which might annoy user
+      switch (e.key) {
+        case "ArrowUp":
+          e.preventDefault()
+          console.log('You pressed ArrowUp');
+          rowIdx = Math.max(rowIdx - 1, 0)
+          break;
+        case "ArrowDown":
+          e.preventDefault()
+          console.log('You pressed ArrowDown');
+          rowIdx = Math.min(rowIdx + 1, NUM_ROWS)
+          break;
+        case "ArrowLeft":  
+          e.preventDefault()
+          console.log('You pressed ArrowLeft');
+          columnIdx = Math.max(columnIdx - 1, 0)
+          break;
+        case "ArrowRight":
+          e.preventDefault()
+          columnIdx = Math.min(columnIdx + 1, NUM_COLUMNS)
+          break;
+      }
+      return {rowIdx, columnIdx}
+    })
   }
 
   return (
-    <Box width="full">
+    <Box id="spreadsheet" width="full">
       {spreadsheetState.map((row, rowIdx) => {
         return (
           <Flex key={String(rowIdx)}>
@@ -29,7 +51,8 @@ const Spreadsheet: React.FC = () => {
             {row.map((cellValue, columnIdx) => (
               <Cell
                 key={`${rowIdx}/${columnIdx}`}
-                value={displayValue(cellValue)}
+                value={cellValue}
+                onKeyPress={onKeyPress}
                 onChange={(newValue: string) => {
                   const newRow = [
                     ...spreadsheetState[rowIdx].slice(0, columnIdx),
